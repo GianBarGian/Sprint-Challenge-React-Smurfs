@@ -15,6 +15,19 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    this.fetchSmurfs('http://localhost:3333/smurfs');
+  }
+
+  fetchSmurfs = url => {
+    this.resetError();
+    this.startSpinner();
+    axios.get(url)
+        .then(res => this.setSmurfs(res.data))
+        .catch(this.setError)
+        .finally(this.stopSpinner);
+  }
+
   setSmurfs = smurfs => this.setState({ smurfs });
 
   setError = error => this.setState({ error });
