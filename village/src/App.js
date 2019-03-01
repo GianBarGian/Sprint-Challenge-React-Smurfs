@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Route, NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
-import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
 
@@ -81,15 +81,14 @@ class App extends Component {
   stopSpinner = () => this.setState({ loading: false })
 
   updateSelected = selected => this.setState({ selected })
-  
 
   render() {
     return (
-      <div className="App">
-        <nav>
-          <NavLink to="/">Home</NavLink>
+      <StyledApp>
+        <StyledNav>
+          <NavLink exact to="/">Home</NavLink>
           <NavLink to="/smurf-form">Form</NavLink>
-        </nav>
+        </StyledNav>
         <Route 
           exact path="/" 
           render={pr => <Smurfs {...pr} smurfs={this.state.smurfs}/>} 
@@ -112,9 +111,30 @@ class App extends Component {
             />
           } 
         />  
-      </div>
+      </StyledApp>
     );
   }
 }
+
+const StyledApp = styled.div`
+  text-align: center;
+`;
+
+const StyledNav = styled.nav`
+      display:flex;
+      justify-content: space-evenly;
+      padding: 30px 0;
+      font-size: 1.6rem;
+      a {
+        text-decoration: none;
+        color: black;
+        &:hover {
+          color: gray;
+        }
+      }
+      .active {
+          text-decoration: underline;
+        }
+`;
 
 export default App;
