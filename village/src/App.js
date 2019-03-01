@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
+import Smurf from './components/Smurf'; 
 
 class App extends Component {
   constructor(props) {
@@ -108,9 +109,25 @@ class App extends Component {
               selected={this.state.selected}
               updateSelected={this.updateSelected}
               smurfs={this.state.smurfs}
-            />
+          />
           } 
-        />  
+        />
+        {
+          this.state.smurfs.map(smurf =>
+            <Route path={`/${smurf.id}`} render={pr =>
+              <Smurf
+                name={smurf.name}
+                id={smurf.id}
+                age={smurf.age}
+                height={smurf.height}
+                key={smurf.id}
+                {...pr}
+              />
+            } 
+          />
+          )
+        }
+          
       </StyledApp>
     );
   }

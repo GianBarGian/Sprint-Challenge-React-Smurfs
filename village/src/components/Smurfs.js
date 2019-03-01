@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Route, NavLink } from 'react-router-dom';
 
 import Smurf from './Smurf';
 
@@ -11,13 +12,18 @@ class Smurfs extends Component {
         <ul>
           {this.props.smurfs.map(smurf => {
             return (
-              <Smurf
-                name={smurf.name}
-                id={smurf.id}
-                age={smurf.age}
-                height={smurf.height}
-                key={smurf.id}
-              />
+              <NavLink to={`/${smurf.id}`}>
+                <Route exact path="/" render={pr =>
+                  <Smurf
+                  name={smurf.name}
+                  id={smurf.id}
+                  age={smurf.age}
+                  height={smurf.height}
+                  key={smurf.id}
+                  {...pr}
+                  />
+                } />
+              </NavLink>
             );
           })}
         </ul>
@@ -33,7 +39,7 @@ Smurf.defaultProps = {
 const StyledSmurfs = styled.div`
   width: 80%;
   margin: 0 auto;
-  ul {
+  ul a {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
