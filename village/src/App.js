@@ -15,6 +15,10 @@ class App extends Component {
     };
   }
 
+  inputNameRef = React.createRef();
+  inputAgeRef = React.createRef();
+  inputHeightRef = React.createRef();
+
   componentDidMount() {
     this.fetchSmurfs('http://localhost:3333/smurfs');
   }
@@ -27,6 +31,20 @@ class App extends Component {
         .catch(this.setError)
         .finally(this.stopSpinner);
   }
+
+  postSmurf = () => {
+    const name= this.inputNameRef.current.value;
+    const age= this.inputAgeRef.current.value;
+    const height = this.inputHeightRef.current.value;
+    const id = this.state.smurfs.length ;
+
+    this.resetError();
+    this.startSpinner();
+    axios.post('http://localhost:3333/smurfs', { id, name, age, height})
+        .then(res => this.setSmurfs(res.data))
+        .catch(this.setError)
+        .finally(this.stopSpinner);
+}
 
   setSmurfs = smurfs => this.setState({ smurfs });
 
@@ -43,7 +61,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SmurfForm />
+        <SmurfForm
+          inputNameRef={this.inputNameRef}
+          inputAgeRef={this.inputAgeRef}
+          inputHeightRef={this.inputHeightRef}
+          postSmurf={this.postSmurf}
+        />
         <Smurfs smurfs={this.state.smurfs} />
       </div>
     );
