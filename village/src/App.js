@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Route } from 'react-router-dom';
 
 import './App.css';
 import SmurfForm from './components/SmurfForm';
@@ -55,19 +56,27 @@ class App extends Component {
   startSpinner = () => this.setState({ loading: true })
 
   stopSpinner = () => this.setState({ loading: false })
-  // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
-  // Notice what your map function is looping over and returning inside of Smurfs.
-  // You'll need to make sure you have the right properties on state and pass them down to props.
+
   render() {
     return (
       <div className="App">
-        <SmurfForm
-          inputNameRef={this.inputNameRef}
-          inputAgeRef={this.inputAgeRef}
-          inputHeightRef={this.inputHeightRef}
-          postSmurf={this.postSmurf}
+        <Route 
+          exact path="/" 
+          render={pr => <Smurfs {...pr} smurfs={this.state.smurfs}/>} 
         />
-        <Smurfs smurfs={this.state.smurfs} />
+        <Route 
+          path="/smurf-form" 
+          render={
+            pr =>         
+              <SmurfForm
+              {...pr}
+              inputNameRef={this.inputNameRef}
+              inputAgeRef={this.inputAgeRef}
+              inputHeightRef={this.inputHeightRef}
+              postSmurf={this.postSmurf}
+            />
+          } 
+        />  
       </div>
     );
   }

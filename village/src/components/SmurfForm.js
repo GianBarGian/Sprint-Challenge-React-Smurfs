@@ -4,8 +4,8 @@ function SmurfForm({ inputNameRef, inputAgeRef, inputHeightRef, postSmurf}) {
   return (
     <div className="SmurfForm">
       <form onSubmit={e => {
-        e.preventDefault()
-        postSmurf()
+        e.preventDefault();
+        postSmurf();
       }}>
         <input
           placeholder="name"
