@@ -13,6 +13,7 @@ class App extends Component {
       smurfs: [],
       error: null,
       loading: false,
+      selected: "",
     };
   }
 
@@ -45,7 +46,29 @@ class App extends Component {
         .then(res => this.setSmurfs(res.data))
         .catch(this.setError)
         .finally(this.stopSpinner);
-}
+  }
+
+  deleteSmurf = id => {
+    this.resetError();
+    this.startSpinner();
+    axios.delete(`http://localhost:3333/smurfs/${id}`)
+        .then(res => this.setSmurfs(res.data))
+        .catch(this.setError)
+        .finally(this.stopSpinner);
+  }
+
+  updateSmurf = id => {
+    const name= this.inputNameRef.current.value;
+    const age= this.inputAgeRef.current.value;
+    const height = this.inputHeightRef.current.value;
+
+    this.resetError();
+    this.startSpinner();
+    axios.put(`http://localhost:3333/smurfs/${id}`, { name, age, height})
+        .then(res => this.setSmurfs(res.data))
+        .catch(this.setError)
+        .finally(this.stopSpinner);
+  }
 
   setSmurfs = smurfs => this.setState({ smurfs });
 
@@ -56,6 +79,9 @@ class App extends Component {
   startSpinner = () => this.setState({ loading: true })
 
   stopSpinner = () => this.setState({ loading: false })
+
+  updateSelected = selected => this.setState({ selected })
+  
 
   render() {
     return (
@@ -78,6 +104,11 @@ class App extends Component {
               inputAgeRef={this.inputAgeRef}
               inputHeightRef={this.inputHeightRef}
               postSmurf={this.postSmurf}
+              deleteSmurf={this.deleteSmurf}
+              updateSmurf={this.updateSmurf}
+              selected={this.state.selected}
+              updateSelected={this.updateSelected}
+              smurfs={this.state.smurfs}
             />
           } 
         />  
