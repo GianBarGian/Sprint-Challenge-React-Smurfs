@@ -1,12 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
 
 const Smurf = props => {
   return (
-    <div className="Smurf">
+    <StyledSmurf>
       <h3>{props.name}</h3>
-      <strong>{props.height} tall</strong>
+      <p>{props.height} tall</p>
       <p>{props.age} smurf years old</p>
-    </div>
+    </StyledSmurf>
   );
 };
 
@@ -15,6 +16,13 @@ Smurf.defaultProps = {
   height: '',
   age: ''
 };
+
+const StyledSmurf = styled.div`
+  padding-bottom: 15px;
+  border: 3px solid black;
+  margin-bottom: 20px;
+  background: #b3e3f3;
+`;
 
 export default Smurf;
 

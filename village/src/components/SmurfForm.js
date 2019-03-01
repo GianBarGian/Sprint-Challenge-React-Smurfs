@@ -1,57 +1,53 @@
-import React, { Component } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
-class SmurfForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      age: '',
-      height: ''
-    };
-  }
-
-  addSmurf = event => {
-    event.preventDefault();
-    // add code to create the smurf using the api
-
-    this.setState({
-      name: '',
-      age: '',
-      height: ''
-    });
-  }
-
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  render() {
-    return (
-      <div className="SmurfForm">
-        <form onSubmit={this.addSmurf}>
-          <input
-            onChange={this.handleInputChange}
-            placeholder="name"
-            value={this.state.name}
-            name="name"
-          />
-          <input
-            onChange={this.handleInputChange}
-            placeholder="age"
-            value={this.state.age}
-            name="age"
-          />
-          <input
-            onChange={this.handleInputChange}
-            placeholder="height"
-            value={this.state.height}
-            name="height"
-          />
-          <button type="submit">Add to the village</button>
-        </form>
-      </div>
-    );
-  }
+function SmurfForm({ inputNameRef, inputAgeRef, inputHeightRef, postSmurf, deleteSmurf, updateSmurf, selected, updateSelected, smurfs }) {
+  return (
+    <StyledForm>
+      <select name="smurfs" value={selected} onChange={e => updateSelected(e.target.value)}>
+          <option value="" >Choose a smurf</option>
+          {
+              smurfs.map(smurf => 
+                  <option key={smurf.id} value={smurf.id}>{smurf.name}</option>    
+              )
+          }
+      </select>
+      <input
+        placeholder="name"
+        ref={inputNameRef}
+        name="name"
+      />
+      <input
+        placeholder="age"
+        ref={inputAgeRef}
+        name="age"
+      />
+      <input
+        placeholder="height"
+        ref={inputHeightRef}
+        name="height"
+      />
+      <input type="button" onClick={postSmurf} value="Add to the village" /> 
+      <input type="button" onClick={() => deleteSmurf(selected)} value="Delete Smurf" />
+      <input type="button" onClick={() => updateSmurf(selected)} value="Update Smurf" />
+    </StyledForm>
+  );
 }
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  select {
+    text-align-last:center;
+  }
+  input {
+    margin-top: 10px;
+    &::placeholder {
+      text-align: center;
+    }
+  }
+`;
 
 export default SmurfForm;
