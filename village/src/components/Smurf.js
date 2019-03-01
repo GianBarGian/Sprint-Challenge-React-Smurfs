@@ -18,13 +18,10 @@ Smurf.defaultProps = {
 };
 
 const StyledSmurf = styled.div`
-  width: 40%;
   padding-bottom: 15px;
   border: 3px solid black;
   margin-bottom: 20px;
   background: #b3e3f3;
-
-
 `;
 
 export default Smurf;

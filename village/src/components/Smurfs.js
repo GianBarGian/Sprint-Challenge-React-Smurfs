@@ -39,11 +39,16 @@ Smurf.defaultProps = {
 const StyledSmurfs = styled.div`
   width: 80%;
   margin: 0 auto;
-  ul a {
+  ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-  }
+    a {
+      text-decoration: none;
+      color: black;
+      width: 40%;
+    }
+  } 
 `;
 
 export default Smurfs;
