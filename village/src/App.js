@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Route } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 
 import './App.css';
 import SmurfForm from './components/SmurfForm';
@@ -37,7 +37,7 @@ class App extends Component {
     const name= this.inputNameRef.current.value;
     const age= this.inputAgeRef.current.value;
     const height = this.inputHeightRef.current.value;
-    const id = this.state.smurfs.length ;
+    const id = this.state.smurfs.length;
 
     this.resetError();
     this.startSpinner();
@@ -60,6 +60,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <nav>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/smurf-form">Form</NavLink>
+        </nav>
         <Route 
           exact path="/" 
           render={pr => <Smurfs {...pr} smurfs={this.state.smurfs}/>} 
